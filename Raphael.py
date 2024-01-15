@@ -4,6 +4,9 @@ import random as rd
 pygame.init()
 screen = pygame.display.set_mode((720, 720))
 clock = pygame.time.Clock()
+
+
+#création de la carte : methode numéro 1
 White = (255, 255, 255)
 sol1 = [(i, 410) for i in range(101)]
 sol2 = [(250 + i, 410) for i in range(471)]
@@ -43,7 +46,7 @@ def collision(point, surface):
     return False
 
 
-
+#définition des paramètres du perso : idée numéro 1
 x = 360
 y = 360
 vx = 0
@@ -56,6 +59,7 @@ portal = {}
 portals = 0
 plaf = False
 
+#jeu qui tourne 
 while en_cours:
     clock.tick(800)
     touches = pygame.key.get_pressed()
