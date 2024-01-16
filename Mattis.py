@@ -6,15 +6,24 @@ accel_saut_perso = 5
 
 
 class Personnage:
-    def __init__(self,pos_x,pos_y,v_x,v_y,vmax_x,vmax_y):
+    def __init__(self, pos_x, pos_y, v_x, v_y):# vmax_x, vmax_y):
         self.pos_x = pos_x #position initiale
         self.pos_y = pos_y #on distingue x et y pour clarifié et eviter soucis de modif dans une fct 
         self.v_x = v_x #comme vu en cours
         self.v_y = v_y
-        self.vmax_x = vmax_x
-        self.vmax_y = vmax_y
+        # self.vmax_x = vmax_x
+        # self.vmax_y = vmax_y
         print('perso existe')
+
+    def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
+        if event.type == pygame.QUIT:
+            en_cours = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and (dc[0] or dc[1]) and matsurfaces[int(yc)][int(xc)]:
+            portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
+            portals = 1 - portals
+        return en_cours, portals, portal
         
+
     def acceleration_x(self, v):
         if self.v_x < self.vmax_x -v:
             self.v_x += v
@@ -29,6 +38,9 @@ class Personnage:
     
     def sauter(self):
         self.acceleration_y(accel_saut_perso) #valeur à modifier en fonction de la dynamique du jeu 
+    
+    def draw (self, screen, White, x, y, radius = 30):
+        pygame.draw.circle(screen, White, (x, y), radius)
 
             
     class Map:
@@ -37,5 +49,5 @@ class Personnage:
             self.dim_x = dim_x #nombre de pixel de largeur
             self.dim_y = dim_y
         
-        def Surface_map(self):
+        #def Surface_map(self):
             
