@@ -30,12 +30,17 @@ class Personnage:
     def sauter(self):
         self.acceleration_y(accel_saut_perso) #valeur à modifier en fonction de la dynamique du jeu 
 
+    def Surface(self):
+        #création de sa Surface
             
     class Map:
         def __init__(self, matrice, dim_x, dim_y, spawn_x, spawn_y):
             self.matrice = matrice #matrice représentative de la map
             self.dim_x = dim_x #nombre de pixel de largeur
             self.dim_y = dim_y
+            self.spawn_x = 
         
-        def Surface_map(self):
+        def Surfaces_map(self): #Créer concrétement des surfaces pygame qui corresponde à la map
             
+screen = pygame.display.set_mode((720, 720))
+clock = pygame.time.Clock() 

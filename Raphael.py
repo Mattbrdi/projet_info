@@ -42,7 +42,7 @@ for paroi in paroisL:
 def collision(point, surface):
     for x, y in surface:
         if (point[0] - x)**2 + (point[1] - y)**2 <= 30**2:
-            return True
+            return True #il existe une fonction python qui gère directement les collisions 
     return False
 
 
