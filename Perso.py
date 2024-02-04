@@ -25,6 +25,17 @@ class personnage(objet):
         
     def sauter(self):
         self.speed[1]+=  speed_saut
-
+        
+    def draw (self, screen, White, x, y, radius = 30):
+        pygame.draw.circle(screen, White, (x, y), radius)
     
-        #création de sa Surface
+    def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
+        if event.type == pygame.QUIT:
+            en_cours = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and (dc[0] or dc[1]) and matsurfaces[int(yc)][int(xc)]:
+            portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
+            portals = 1 - portals
+        return en_cours, portals, portal
+
+
+        
