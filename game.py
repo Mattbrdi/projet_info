@@ -27,7 +27,7 @@ class Game:
     def run(self):
         """Run the game"""
         pygame.init()
-        largeur, hauteur = self.self.carre*len(carte.map[0]), carre*len(carte.map)
+        largeur, hauteur = carre*len(carte.map[0]), carre*len(carte.map)
         taille_fenetre = (largeur, hauteur)
         screen = pygame.display.set_mode(taille_fenetre)
         pygame.display.set_caption("screen")

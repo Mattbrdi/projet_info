@@ -1,4 +1,5 @@
 import pygame 
+import Map 
 #constante liés aux personnages ---------------
 speed_jump = -5
 #----------------------------------------------
@@ -17,43 +18,53 @@ class objet:
             self.speed[1] = self.speed_max[1] * self.speed[1]/ abs(self.speed[1])
             
     def acceleration(self, a):
-        self.speed += a
+        self.speed[0] += a[0]
+        self.speed[1] += a[1]
+        
+    def translated_pos(self, a):
+        return [self.position[0]+a[0],self.position[1] + a[1] ]
     
+    def next_position(self):
+        self.position = self.translated_pos(self.speed)
+        
     def change_position(self, pos):
         self.position = pos
         
-    def next_position(self):
-        self.position[0] += self.speed[0]
-        self.position[1] += self.speed[1]
         
     def change_speed(self, speed):
         self.speed = speed
     
-    @staticmethod
-    def get_pos_in_carte_matrice(position, carte):#retourne l'indice de la case (ligne, colonne)
-        return (position()[1]//carte.carre , position()[0]//carte.carre)
-    
-                    
-                    
-                
             
 
 class personnage(objet): 
     def __init__(self, position, speed, speed_max):
         super().__init__(position, speed, speed_max)
-           
+        self.AccessibleCoordinates
     def sauter(self):
         self.speed[1]+=  speed_jump
-        
-    def draw (self, screen, White, x, y, radius = 30):
+      
+    def draw(self, screen, White, x, y, radius = 30):
         pygame.draw.circle(screen, White, (x, y), radius)
     
-    def considering_walls(self, carte):
-        position = self.position
-        if objet.get_pos_in_carte_matrice(position,carte) not in carte.PersoAccessibleCoordinates:
-                    
-        return 
+    def def_accessible_coordinates(self, carte):
+        self.AccessibleCoordinates = []
+        for i in range(len(self.map)):
+            for j in range(len(self.map[i])):
+                if self.map[i][j] in ['.'] : #caractère access pour perso
+                    for k in range(carte.carre): 
+                        for l in range(carte.carre):
+                            self.AccessibleCoordinates.append((j*carte.carre + k, i*carte.carre + l)) 
     
+    def next_position_considering_walls(self, carte):
+        while self.next_position() not in self.AccessibleCoordinates:
+            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
+                self.speed[0] -= self.speed[0]/abs(self.speed[0])
+            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
+                self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
+                  
+        self.position = self.next_position()  
+                    
+        
     def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
         if event.type == pygame.QUIT:
             en_cours = False
