@@ -1,50 +1,46 @@
 import pygame 
 import sys
-import Perso 
+from Perso import personnage
+from Map import Map
+
 class Game: 
     def __init__(self):
         pass
-    
-    def handle_events(self, event):
-        direction = None
-        Space = False
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-            
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                direction = "left"
-            elif event.key == pygame.K_RIGHT:
-                direction = "right"
-            elif event.key == pygame.K_UP:
-                direction = "up"
-            elif event.key == pygame.K_DOWN:
-                direction = "down"
-            elif event.key == pygame.K_SPACE:
-                Space = True 
-    
-    def run(self):
+         
+        
+    def run(self, carte_filename):
         """Run the game"""
+        carte = Map(carte_filename)
+        print("---------------------",carte.spawn)
+        perso = personnage(carte.spawn) 
+        perso.def_accessible_coordinates(carte)
+        
         pygame.init()
-        largeur, hauteur = carre*len(carte.map[0]), carre*len(carte.map)
+        largeur, hauteur = carte.carre*len(carte.map[0]), carte.carre*len(carte.map)
         taille_fenetre = (largeur, hauteur)
         screen = pygame.display.set_mode(taille_fenetre)
         pygame.display.set_caption("screen")
         couleur_fond = (0,0,0)
 
-
+        
         running = True
         while running:
-            direction = None
-            Space = False
+            #gerer l'évolution du jeu
             for event in pygame.event.get():
-                self.handle_events(event)
-                  
+                if event.type == pygame.QUIT:
+                    running = False
+                perso.handle_event(event)
+                
+                
+            #perso.next_position_considering_walls()
+            
+            #affichage     
             screen.fill(couleur_fond)
-            pygame.update_display(screen, 32, (255, 0, 0), perso)
-           
-
+            carte.draw_map(screen)
+            perso.draw(screen)
+            for pixel in perso.AccessibleCoordinates:
+                screen.set_at(pixel, (0,255,0))
+            print(perso.position in perso.AccessibleCoordinates)
             pygame.display.flip()
             pygame.time.Clock().tick(20)
     
