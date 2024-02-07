@@ -17,7 +17,7 @@ class Map:
             for j in range(len(self.map[i])):
                 if self.map[i][j] == '@':
                     self.spawn = (j*self.carre +(self.carre //2 ) , (i+1)*self.carre-1)
-        self.map_decouverte = self.map
+        self.map_decouverte = self.map #sert si jamais on fait une map evolutive
         
 
     def draw_map(self, screen):
@@ -29,7 +29,7 @@ class Map:
                     pygame.draw.rect(screen, (255,255,255), (j*self.carre, i*self.carre, self.carre, self.carre))
                 elif self.map_decouverte[i][j] == '@': #spawn
                     pygame.draw.rect(screen, (100, 100, 100), (j*self.carre, i*self.carre, self.carre, self.carre))
-                elif self.map_decouverte[i][j] == '+': #bord de la map
+                elif self.map_decouverte[i][j] == '+': #bord de la map accessible = premier mur
                     pygame.draw.rect(screen, (255,255,255), (j*self.carre, i*self.carre, self.carre, self.carre))
                 elif self.map_decouverte[i][j] == '-' or self.map_decouverte[i][j] == '|': #mur
                     pygame.draw.rect(screen, (0, 0, 255), (j*self.carre, i*self.carre, self.carre, self.carre)) 

@@ -1,6 +1,6 @@
 import pygame 
 import Map 
-#constante liés aux personnages ---------------
+#constante liés aux personnages --------------- influe sur la dynamique du jeu
 speed_jump = -20
 gravite = 4
 accel =10
@@ -49,6 +49,7 @@ class personnage(objet):
     def draw(self, screen):
         pygame.draw.circle(screen, couleur_perso, self.position, self.taille_personnage)
     
+    #adaptation du perso à la map
     def def_accessible_coordinates(self, carte):
         self.AccessibleCoordinates = []
         for i in range(len(carte.map)):
@@ -63,15 +64,8 @@ class personnage(objet):
     def regle_a_la_map(self, carte):
         self.def_accessible_coordinates(carte)
         self.size(carte)
-        
-    def next_position_considering_walls(self):
-        while self.next_position() not in self.AccessibleCoordinates:
-            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
-                self.speed[0] -= self.speed[0]/abs(self.speed[0])
-            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
-                self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
-                
-        self.position = self.next_position()  
+          
+#déplacement du perso acceleration ressenti        
     def is_on_the_ground(self):
         return self.translated_pos([0,1]) not in self.AccessibleCoordinates
     
@@ -93,7 +87,22 @@ class personnage(objet):
     def frottement(self):
         if self.is_on_the_ground():
             self.acceleration([-self.speed[0],0])
-
+            
+    def force_applicated(self):
+        self.gravite()
+        self.frottement()
+        
+    #application des acceleration : deplacement réel du perso
+    def next_position_considering_walls(self):
+        while self.next_position() not in self.AccessibleCoordinates:
+            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
+                self.speed[0] -= self.speed[0]/abs(self.speed[0])
+            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
+                self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
+                
+        self.position = self.next_position()
+        
+#pas compris à quoi ca sert
     def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
         if event.type == pygame.QUIT:
             en_cours = False
@@ -102,7 +111,5 @@ class personnage(objet):
             portals = 1 - portals
         return en_cours, portals, portal
 
-    def force_applicated(self):
-        self.gravite()
-        self.frottement()
+    
     
