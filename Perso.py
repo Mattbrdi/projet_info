@@ -1,10 +1,11 @@
 import pygame 
 import Map 
 #constante liés aux personnages --------------- influe sur la dynamique du jeu
-speed_jump = -20
-gravite = 4
-accel =10
-speed_max = [10, 40]
+
+speed_jump = -13
+gravite = 1
+accel =5
+speed_max = [accel, 5*accel]
 couleur_perso = (255,0,0)
 #----------------------------------------------
 
@@ -47,8 +48,12 @@ class personnage(objet):
         self.taille_personnage = 0
         
     def draw(self, screen):
-        pygame.draw.circle(screen, couleur_perso, self.position, self.taille_personnage)
-    
+        points_losange = []
+        i_j = [(1,1), (-1,1), (-1,-1), (1,-1)]
+        for i, j in i_j   :
+            points_losange.append((self.position[0] +i*self.taille_personnage, self.position[1]+ j*self.taille_personnage))
+        pygame.draw.polygon(screen, couleur_perso, points_losange)
+        #pygame.draw.circle(screen, couleur_perso, self.position, self.taille_personnage)
     #adaptation du perso à la map
     def def_accessible_coordinates(self, carte):
         self.AccessibleCoordinates = []
@@ -65,7 +70,7 @@ class personnage(objet):
         self.def_accessible_coordinates(carte)
         self.size(carte)
           
-#déplacement du perso acceleration ressenti        
+#déplacement du perso acceleration   
     def is_on_the_ground(self):
         return self.translated_pos([0,1]) not in self.AccessibleCoordinates
     
@@ -98,6 +103,9 @@ class personnage(objet):
             if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])
             elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
+                self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
+            else:  
+                self.speed[0] -= self.speed[0]/abs(self.speed[0])
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
                 
         self.position = self.next_position()

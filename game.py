@@ -36,8 +36,8 @@ class Game:
             screen.fill(couleur_fond)
             carte.draw_map(screen)
             perso.draw(screen)
-            
+            pygame.event.pump()
 
             pygame.display.flip()
-            pygame.time.Clock().tick(20)
+            pygame.time.Clock().tick(60)
     
