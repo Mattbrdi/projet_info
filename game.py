@@ -2,6 +2,7 @@ import pygame
 import sys
 from Perso import personnage
 from Map import Map
+from portail import Portail
 
 class Game: 
     def __init__(self):
@@ -20,7 +21,7 @@ class Game:
         screen = pygame.display.set_mode(taille_fenetre)
         pygame.display.set_caption("screen")
         couleur_fond = (0,0,0)
-
+        portail = Portail(screen, carte)
         running = True
         while running:
             #gerer l'évolution du jeu
@@ -30,12 +31,17 @@ class Game:
                     running = False
             perso.force_applicated()
             touche = pygame.key.get_pressed()
-            perso.handle_key_pressed(touche)
+            portail.portail_select(touche)
+            portail.draw(screen, perso.position, touche)
+            perso.handle_key_pressed(touche, portail)
             perso.next_position_considering_walls()
+            #perso.position = portail.teleportation(perso.position)
+
             #affichage     
             screen.fill(couleur_fond)
             carte.draw_map(screen)
             perso.draw(screen)
+            portail.keep_drawing(screen)
             pygame.event.pump()
 
             pygame.display.flip()

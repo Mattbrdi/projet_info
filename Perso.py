@@ -78,13 +78,15 @@ class personnage(objet):
         if self.is_on_the_ground() :
             self.speed[1]=  speed_jump
             
-    def handle_key_pressed(self, touches):
+    def handle_key_pressed(self, touches, portail):
         if touches[pygame.K_LEFT]:
             self.acceleration([-accel,0])
         if touches[pygame.K_RIGHT]:
             self.acceleration([accel,0])
         if touches[pygame.K_UP]:
             self.jump()
+        if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
+            portail.get_draw_position(touches, self.position)
             
     def gravite(self):
         self.acceleration([0,gravite])
@@ -118,6 +120,6 @@ class personnage(objet):
             portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
             portals = 1 - portals
         return en_cours, portals, portal
-
+    
     
     
