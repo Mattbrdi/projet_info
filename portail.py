@@ -39,7 +39,7 @@ class Portail:
                 i -= 1
                 print(int_position[0], i )
             self.facing = 'up'
-            return int_position[0], i - 16
+            return int_position[0], i - 8
         
         if touches[pygame.K_s] and not touches[pygame.K_q] and not touches[pygame.K_d]:
             i = int_position[1]
@@ -101,7 +101,7 @@ class Portail:
 
 #TODO: add the other cases
     def draw_blue(self, screen):
-        if self.facing == 'left or right':
+        if self.facing == 'left' or 'right':
             rect_ovale = pygame.Rect(self.x_blue - 7, self.y_blue - 30, 14, 60)
             pygame.draw.ellipse(screen, self.blue, rect_ovale)
         else:
@@ -112,10 +112,10 @@ class Portail:
         self.is_blue = True
     
     def draw_orange(self, screen):
-        if self.facing == 'left or right':
+        if self.facing == 'left' or 'right':
             rect_ovale = pygame.Rect(self.x_orange - 7, self.y_orange - 30, 14, 60)
             pygame.draw.ellipse(screen, self.orange, rect_ovale)
-        else:
+        if self.facing == 'up' or 'down':
             rect_ovale = pygame.Rect(self.x_orange - 7, self.y_orange - 30, 60, 14)
             pygame.draw.ellipse(screen, self.orange, rect_ovale)
         pygame.display.flip()
