@@ -4,4 +4,4 @@ from game import Game
 
 #ici il faudrait gerer le menu et le lancement du jeu 
 game = Game()
-game.run("carte.txt")
+game.run("carte_2.txt")
