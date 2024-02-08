@@ -13,7 +13,9 @@ class Portail:
         self.orange = (255, 100, 0)
         self.map = carte.map
         self.selected_portal = 'orange'
-        self.facing = 'right'
+        self.facing = 'none'
+        self.blue_facing = 'none'
+        self.orange_facing = 'none'
     
     def portail_select(self, touches):
         if touches[pygame.K_TAB]:
@@ -37,30 +39,25 @@ class Portail:
             i = int_position[1]
             while self.map[i // 32 ][int_position[0] // 32 ] == '.':
                 i -= 1
-                print(int_position[0], i )
-            self.facing = 'up'
             return int_position[0], i - 8
         
         if touches[pygame.K_s] and not touches[pygame.K_q] and not touches[pygame.K_d]:
             i = int_position[1]
             while self.map[i // 32 ][int_position[0] // 32 ] == '.':
                 i += 1
-            self.facing = 'down'
-            return int_position[0], i+16
+            return int_position[0], i + 55
         
         if touches[pygame.K_q] and not touches[pygame.K_z] and not touches[pygame.K_s] and not touches[pygame.K_d]:
             i = int_position[0]
             while self.map[int_position[1] // 32 ][i // 32 ] == '.':
                 i -= 1
-            self.facing = 'left'
-            return i - 16 , int_position[1]
+            return i - 32 , int_position[1]
         
         if touches[pygame.K_d] and not touches[pygame.K_z] and not touches[pygame.K_s] and not touches[pygame.K_q]:
             i = int_position[0]
             while self.map[int_position[1] // 32 ][i // 32 ] == '.':
                 i += 1
-            self.facing = 'right'
-            return i + 16 , int_position[1]
+            return i + 32 , int_position[1]
         
         if touches[pygame.K_z] and touches[pygame.K_q] and not touches[pygame.K_d] and not touches[pygame.K_s]:
             i = int_position[1]
@@ -68,8 +65,7 @@ class Portail:
             while self.map[i // 32 ][j // 32 ] == '.':
                 i -= 1
                 j -= 1
-            self.facing = 'left'
-            return j - 16 , i
+            return j - 32 , i
         
         if touches[pygame.K_z] and touches[pygame.K_d] and not touches[pygame.K_q] and not touches[pygame.K_s]:
             i = int_position[1]
@@ -77,8 +73,7 @@ class Portail:
             while self.map[i // 32 ][j // 32 ] == '.':
                 i -= 1
                 j += 1
-            self.facing = 'right'
-            return j + 16 , i
+            return j + 32 , i
         
         if touches[pygame.K_s] and touches[pygame.K_q] and not touches[pygame.K_d] and not touches[pygame.K_z]:
             i = int_position[1]
@@ -86,8 +81,7 @@ class Portail:
             while self.map[i // 32 ][j // 32 ] == '.':
                 i += 1
                 j -= 1
-            self.facing = 'left'
-            return j - 16, i
+            return j - 32, i
         
         if touches[pygame.K_s] and touches[pygame.K_d] and not touches[pygame.K_q] and not touches[pygame.K_z]:
             i = int_position[1]
@@ -95,16 +89,15 @@ class Portail:
             while self.map[i // 32 ][j // 32 ] == '.':
                 i += 1
                 j += 1
-            self.facing = 'right'
             return j + 16, i
 
 
 #TODO: add the other cases
     def draw_blue(self, screen):
-        if self.facing == 'left' or 'right':
+        if self.blue_facing == 'left' or self.blue_facing == 'right':
             rect_ovale = pygame.Rect(self.x_blue - 7, self.y_blue - 30, 14, 60)
             pygame.draw.ellipse(screen, self.blue, rect_ovale)
-        else:
+        elif self.blue_facing == 'up' or self.blue_facing == 'down':
             rect_ovale = pygame.Rect(self.x_blue - 7, self.y_blue - 30, 60, 14)
             pygame.draw.ellipse(screen, self.blue, rect_ovale)
 
@@ -112,10 +105,10 @@ class Portail:
         self.is_blue = True
     
     def draw_orange(self, screen):
-        if self.facing == 'left' or 'right':
+        if self.orange_facing == 'left' or self.orange_facing == 'right':
             rect_ovale = pygame.Rect(self.x_orange - 7, self.y_orange - 30, 14, 60)
             pygame.draw.ellipse(screen, self.orange, rect_ovale)
-        if self.facing == 'up' or 'down':
+        elif self.orange_facing == 'up' or self.orange_facing == 'down':
             rect_ovale = pygame.Rect(self.x_orange - 7, self.y_orange - 30, 60, 14)
             pygame.draw.ellipse(screen, self.orange, rect_ovale)
         pygame.display.flip()
@@ -135,17 +128,43 @@ class Portail:
     
     def draw(self, screen, position, touches):
         if touches[pygame.K_SPACE]:
+            if touches[pygame.K_z] and not touches[pygame.K_q] and not touches[pygame.K_d]:
+                self.facing = 'up'
+        
+            if touches[pygame.K_s] and not touches[pygame.K_q] and not touches[pygame.K_d]:
+                self.facing = 'down'
+
+            if touches[pygame.K_q] and not touches[pygame.K_z] and not touches[pygame.K_s] and not touches[pygame.K_d]:
+                self.facing = 'left'
+
+            if touches[pygame.K_d] and not touches[pygame.K_z] and not touches[pygame.K_s] and not touches[pygame.K_q]:
+                self.facing = 'right'
+
+            if touches[pygame.K_z] and touches[pygame.K_q] and not touches[pygame.K_d] and not touches[pygame.K_s]:
+                self.facing = 'left'
+
+            if touches[pygame.K_z] and touches[pygame.K_d] and not touches[pygame.K_q] and not touches[pygame.K_s]:
+                self.facing = 'right'
+
+            if touches[pygame.K_s] and touches[pygame.K_q] and not touches[pygame.K_d] and not touches[pygame.K_z]:
+                self.facing = 'left'
+            
+            if touches[pygame.K_s] and touches[pygame.K_d] and not touches[pygame.K_q] and not touches[pygame.K_z]:
+                self.facing = 'right'
+    
             if self.selected_portal == 'blue':
                 if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
                     self.remove_blue(screen)
                     self.x_blue, self.y_blue = self.get_draw_position(touches, position)
                     self.draw_blue(screen)
-                    print('blue drawn')
+                    self.blue_facing = self.facing
             else:
                 if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
                     self.remove_orange(screen)
                     self.x_orange, self.y_orange = self.get_draw_position(touches, position)
                     self.draw_orange(screen)
+                    self.orange_facing = self.facing
+
 
     def keep_drawing(self, screen):
         if self.is_blue:
@@ -160,3 +179,4 @@ class Portail:
         if self.x_orange == position[0] and self.y_orange == position[1] and self.is_blue:
             return [self.x_blue, self.y_blue]
     
+        
