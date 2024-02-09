@@ -13,7 +13,7 @@ class Portail:
         self.orange = (255, 100, 0)
         self.map = carte.map
         self.selected_portal = 'orange'
-        self.facing = 'none'
+        self.face = 'none'
         self.blue_facing = 'none'
         self.orange_facing = 'none'
     
@@ -23,6 +23,12 @@ class Portail:
                 self.selected_portal = 'orange'
             else:
                 self.selected_portal = 'blue'
+
+    def facing(self, color):
+        if color == 'blue':
+            return self.blue_facing
+        else:
+            return self.orange_facing
 
     '''
     def get_facing(self):
@@ -129,41 +135,41 @@ class Portail:
     def draw(self, screen, position, touches):
         if touches[pygame.K_SPACE]:
             if touches[pygame.K_z] and not touches[pygame.K_q] and not touches[pygame.K_d]:
-                self.facing = 'up'
+                self.face = 'down'
         
             if touches[pygame.K_s] and not touches[pygame.K_q] and not touches[pygame.K_d]:
-                self.facing = 'down'
+                self.face = 'up'
 
             if touches[pygame.K_q] and not touches[pygame.K_z] and not touches[pygame.K_s] and not touches[pygame.K_d]:
-                self.facing = 'left'
+                self.face = 'right'
 
             if touches[pygame.K_d] and not touches[pygame.K_z] and not touches[pygame.K_s] and not touches[pygame.K_q]:
-                self.facing = 'right'
+                self.face = 'left'
 
             if touches[pygame.K_z] and touches[pygame.K_q] and not touches[pygame.K_d] and not touches[pygame.K_s]:
-                self.facing = 'left'
+                self.face = 'right'
 
             if touches[pygame.K_z] and touches[pygame.K_d] and not touches[pygame.K_q] and not touches[pygame.K_s]:
-                self.facing = 'right'
+                self.face = 'left'
 
             if touches[pygame.K_s] and touches[pygame.K_q] and not touches[pygame.K_d] and not touches[pygame.K_z]:
-                self.facing = 'left'
+                self.face = 'right'
             
             if touches[pygame.K_s] and touches[pygame.K_d] and not touches[pygame.K_q] and not touches[pygame.K_z]:
-                self.facing = 'right'
+                self.face = 'left'
     
             if self.selected_portal == 'blue':
                 if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
                     self.remove_blue(screen)
                     self.x_blue, self.y_blue = self.get_draw_position(touches, position)
                     self.draw_blue(screen)
-                    self.blue_facing = self.facing
+                    self.blue_facing = self.face
             else:
                 if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
                     self.remove_orange(screen)
                     self.x_orange, self.y_orange = self.get_draw_position(touches, position)
                     self.draw_orange(screen)
-                    self.orange_facing = self.facing
+                    self.orange_facing = self.face
 
 
     def keep_drawing(self, screen):

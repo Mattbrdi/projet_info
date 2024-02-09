@@ -35,6 +35,7 @@ class Game:
             portail.draw(screen, perso.position, touche)
             perso.handle_key_pressed(touche, portail)
             perso.next_position_considering_walls()
+            perso.teleportation(carte, portail)
             #perso.position = portail.teleportation(perso.position)
 
             #affichage     
