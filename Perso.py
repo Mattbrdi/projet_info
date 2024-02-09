@@ -78,13 +78,15 @@ class personnage(objet):
         if self.is_on_the_ground() :
             self.speed[1]=  speed_jump
             
-    def handle_key_pressed(self, touches):
+    def handle_key_pressed(self, touches, portail):
         if touches[pygame.K_LEFT]:
             self.acceleration([-accel,0])
         if touches[pygame.K_RIGHT]:
             self.acceleration([accel,0])
         if touches[pygame.K_UP]:
             self.jump()
+        if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
+            portail.get_draw_position(touches, self.position)
             
     def gravite(self):
         self.acceleration([0,gravite])
@@ -99,16 +101,44 @@ class personnage(objet):
         
     #application des acceleration : deplacement réel du perso
     def next_position_considering_walls(self):
-        while self.next_position() not in self.AccessibleCoordinates:
-            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
+        while self.next_position() not in self.AccessibleCoordinates :
+            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates and self.speed[0] != 0:
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])
-            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
+            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates and self.speed[1] != 0:
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
-            else:  
+            elif self.speed[0] != 0 and self.speed[1] != 0:  
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
                 
         self.position = self.next_position()
+
+    
+    def teleportation(self, carte, portail):
+        
+        if (self.position[0] - portail.x_blue)**2 + (self.position[1] - portail.y_blue)**2 <= (carte.carre + 10)**2 and (portail.is_orange and portail.is_blue):
+            if portail.facing('orange') == 'right':
+                self.position = [portail.x_orange + 2*carte.carre, portail.y_orange]
+            elif portail.facing('orange') == 'left':
+                self.position = [portail.x_orange - 2*carte.carre, portail.y_orange]
+            elif portail.facing('orange') == 'up':
+                self.position = [portail.x_orange, portail.y_orange - 2*carte.carre]
+            elif portail.facing('orange') == 'down':
+                self.position = [portail.x_orange, portail.y_orange + 2*carte.carre]
+
+            
+        elif (self.position[0] - portail.x_orange)**2 + (self.position[1] - portail.y_orange)**2 <= (carte.carre + 10)**2 and (portail.is_orange and portail.is_blue):
+            if portail.facing('blue') == 'right':
+                self.position = [portail.x_blue + 2*carte.carre, portail.y_blue]
+            elif portail.facing('blue') == 'left':
+                self.position = [portail.x_blue - 2*carte.carre, portail.y_blue]
+            elif portail.facing('blue') == 'up':
+                self.position = [portail.x_blue, portail.y_blue - 2*carte.carre]
+            elif portail.facing('blue') == 'down':
+                self.position = [portail.x_blue, portail.y_blue + 2*carte.carre]
+        
+
+        
+
         
 #pas compris à quoi ca sert
     def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
@@ -118,6 +148,6 @@ class personnage(objet):
             portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
             portals = 1 - portals
         return en_cours, portals, portal
-
+    
     
     
