@@ -101,17 +101,23 @@ class personnage(objet):
         
     #application des acceleration : deplacement réel du perso
     def next_position_considering_walls(self):
-        while self.next_position() not in self.AccessibleCoordinates:
-            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
+        while self.next_position() not in self.AccessibleCoordinates :
+            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates and self.speed[0] != 0:
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])
-            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
+            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates and self.speed[1] != 0:
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
-            else:  
+            elif self.speed[0] != 0 and self.speed[1] != 0:  
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
-                
+
         self.position = self.next_position()
+
         
+        
+        
+
+
+
 #pas compris à quoi ca sert
     def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
         if event.type == pygame.QUIT:
@@ -120,6 +126,28 @@ class personnage(objet):
             portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
             portals = 1 - portals
         return en_cours, portals, portal
+    
+    def teleportation(self, carte, portail_blue, portail_orange):
+            if (self.position[0] - portail_blue.x)**2 + (self.position[1] - portail_blue.y)**2 <= (carte.carre + 10)**2 and (portail_blue.is_placed and portail_orange.is_placed):
+                if portail_orange.facing == 'right':
+                    self.position = [portail_orange.x + 2*carte.carre, portail_orange.y]
+                elif portail_orange.facing == 'left':
+                    self.position = [portail_orange.x - 2*carte.carre, portail_orange.y]
+                elif portail_orange.facing == 'up':
+                    self.position = [portail_orange.x, portail_orange.y - 2*carte.carre]
+                elif portail_orange.facing == 'down':
+                    self.position = [portail_orange.x, portail_orange.y + 2*carte.carre]
+
+
+            elif (self.position[0] - portail_orange.x)**2 + (self.position[1] - portail_orange.y)**2 <= (carte.carre + 10)**2 and (portail_blue.is_placed and portail_orange.is_placed):
+                if portail_blue.facing == 'right':
+                    self.position = [portail_blue.x + 2*carte.carre, portail_blue.y]
+                elif portail_blue.facing == 'left':
+                    self.position = [portail_blue.x - 2*carte.carre, portail_blue.y]
+                elif portail_blue.facing == 'up':
+                    self.position = [portail_blue.x, portail_blue.y - 2*carte.carre]
+                elif portail_blue.facing == 'down':
+                    self.position = [portail_blue.x, portail_blue.y + 2*carte.carre]
     
     
     

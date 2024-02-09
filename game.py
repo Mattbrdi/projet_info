@@ -40,6 +40,8 @@ class Game:
                 perso.handle_key_pressed(touche, orange_portal)
 
             perso.next_position_considering_walls()
+            perso.teleportation(carte, blue_portal, orange_portal)
+
 
             #affichage     
             screen.fill(couleur_fond)
