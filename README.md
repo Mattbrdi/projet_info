@@ -27,7 +27,8 @@ README.md : ( Ce que vous êtes en train de lire en ce moment même ^^)
 Difficultées rencontrées :
 Mattis : Lecture de la Map : choix du format (finalement sous forme de matrice)
 gerer les collisions (finalement en stockant les coordonnées accessibles et réduire la vitesse si la prochaine positions se trouve hors des positions accessibles)
-gerer la gravité et les histoires de vitesse maximal, tout en mettant des frottements lorsque l'on est au sol
+Nouveau problème à partir de ca : lenteur du programme lorsque j'avance sur un mur en le collant du à une boucle while trop longue --> pas de solution pour la raccourcir sans conserver la meme dynamique du jeu 
+gerer la gravité et les histoires de vitesse maximal, tout en mettant des frottements lorsque l'on est au sol 
 Amine : 
 -Gestion des portails: La gestion des nombreux cas particuliers qui rendent l'écriture fastidieuse, ce qui pousse alors à essayer d'optimiser le code pour le rendre 
 plus lisible. Dans des cas particuliers les téléportations peuvent être sources de bugs.
