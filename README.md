@@ -21,6 +21,7 @@ portail.py : Gestion des portails
 carte.txt : Une carte
 carte_2.txt : Une seconde carte plus fournie 
 README.md : ( Ce que vous êtes en train de lire en ce moment même ^^)
+perso.py : gere le personnage, ses déplacements et les forces qui s'appliquent sur lui (gravité, frottement)
 
 
 
