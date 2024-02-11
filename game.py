@@ -31,6 +31,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    sys.exit()
     
             perso.force_applicated()
             touche = pygame.key.get_pressed()

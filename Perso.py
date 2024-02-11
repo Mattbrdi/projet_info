@@ -131,23 +131,77 @@ class personnage(objet):
             if (self.position[0] - portail_blue.x)**2 + (self.position[1] - portail_blue.y)**2 <= (carte.carre + 10)**2 and (portail_blue.is_placed and portail_orange.is_placed):
                 if portail_orange.facing == 'right':
                     self.position = [portail_orange.x + 2*carte.carre, portail_orange.y]
+                    if portail_blue.facing == 'left':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+                    if portail_blue.facing == 'up':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    if portail_blue.facing == 'down':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+
                 elif portail_orange.facing == 'left':
                     self.position = [portail_orange.x - 2*carte.carre, portail_orange.y]
+                    if portail_blue.facing == 'right':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+                    if portail_blue.facing == 'up':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+                    if portail_blue.facing == 'down':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+
                 elif portail_orange.facing == 'up':
                     self.position = [portail_orange.x, portail_orange.y - 2*carte.carre]
+                    if portail_blue.facing == 'right':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+                    if portail_blue.facing == 'left':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    if portail_blue.facing == 'down':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+
                 elif portail_orange.facing == 'down':
                     self.position = [portail_orange.x, portail_orange.y + 2*carte.carre]
-
+                    if portail_blue.facing == 'right':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    if portail_blue.facing == 'left':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+                    if portail_blue.facing == 'up':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+                    
 
             elif (self.position[0] - portail_orange.x)**2 + (self.position[1] - portail_orange.y)**2 <= (carte.carre + 10)**2 and (portail_blue.is_placed and portail_orange.is_placed):
                 if portail_blue.facing == 'right':
                     self.position = [portail_blue.x + 2*carte.carre, portail_blue.y]
+                    if portail_orange.facing == 'left':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+                    if portail_orange.facing == 'up':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    if portail_orange.facing == 'down':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+
                 elif portail_blue.facing == 'left':
                     self.position = [portail_blue.x - 2*carte.carre, portail_blue.y]
+                    if portail_orange.facing == 'right':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+                    if portail_orange.facing == 'up':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+                    if portail_orange.facing == 'down':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    
                 elif portail_blue.facing == 'up':
                     self.position = [portail_blue.x, portail_blue.y - 2*carte.carre]
+                    if portail_orange.facing == 'right':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+                    if portail_orange.facing == 'left':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    if portail_orange.facing == 'down':
+                        self.change_speed([-self.speed[0], -self.speed[1]]) 
+
                 elif portail_blue.facing == 'down':
                     self.position = [portail_blue.x, portail_blue.y + 2*carte.carre]
+                    if portail_orange.facing == 'right':
+                        self.change_speed([self.speed[1], -self.speed[0]]) 
+                    if portail_orange.facing == 'left':
+                        self.change_speed([-self.speed[1], self.speed[0]]) 
+                    if portail_orange.facing == 'up':
+                        self.change_speed([-self.speed[0], -self.speed[1]])
     
     
     

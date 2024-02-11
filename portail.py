@@ -7,6 +7,8 @@ def select_portal(portal_1, portal_2, keys):
     """
     assert portal_1.is_selected != portal_2.is_selected
     if keys[pygame.K_TAB]:
+        sound = pygame.mixer.Sound("sounds/portal_blue.wav")
+        sound.play()
         if portal_1.is_selected:
             portal_1.is_selected = False
             portal_2.is_selected = True
