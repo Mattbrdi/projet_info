@@ -11,6 +11,18 @@ Gestion du joueur :
 Gestion des portails : Le joueur peut placer et déplacer des portails. Les portails sont placés dans le mur visé par le joueur et prennent automatiquement la bonne orientation.
 L'orientation d'un portail influe sur la gestion de la vitesse en sortie d'un portail. 
 
+main.py : Permet de lancer le programme, et de naviguer entre les différents modes (instructions, et game) 
+button.py : Gestion des boutons utilisés dans le menu principal 
+instructions.py ! Permet d'afficher les instructions
+game.py : Le jeu à proprement dit
+Map.py : Permet de passer d'une carte en fichier texte à une map affichée à l'écran 
+Perso.py : Gestion du personnage et de sa téléportation 
+portail.py : Gestion des portails
+carte.txt : Une carte
+carte_2.txt : Une seconde carte plus fournie 
+README.md : ( Ce que vous êtes en train de lire en ce moment même ^^)
+
+
 
 Difficultées rencontrées :
 Mattis : Lecture de la Map : choix du format (finalement sous forme de matrice)
