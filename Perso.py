@@ -28,7 +28,7 @@ class objet:
             self.speed[1]= self.speed_max[1] *a[1]/abs(a[1])
         
     def translated_pos(self, a):
-        return [self.position[0]+a[0],self.position[1] + a[1] ]
+        return [int(self.position[0]+a[0]),int(self.position[1] + a[1]) ]
     
     def next_position(self):
         return self.translated_pos(self.speed)
@@ -100,16 +100,19 @@ class personnage(objet):
         self.frottement()
         
     #application des acceleration : deplacement réel du perso
+    def norme_vitesse(speed):
+        return (speed[0]**2 + speed[1]**2)**0.5
+    
     def next_position_considering_walls(self):
-        while self.next_position() not in self.AccessibleCoordinates :
-            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates and self.speed[0] != 0:
+        while self.next_position() not in self.AccessibleCoordinates:
+            if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])
-            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates and self.speed[1] != 0:
+            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
-            elif self.speed[0] != 0 and self.speed[1] != 0:  
-                self.speed[0] -= self.speed[0]/abs(self.speed[0])
-                self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
-
+            else:  
+                self.speed[0] -= self.speed[0]/self.norme_vitesse(self.speed)
+                self.speed[1] -= self.speed[1]/self.norme_vitesse(self.speed)
+                
         self.position = self.next_position()
 
         
