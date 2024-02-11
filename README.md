@@ -1,4 +1,3 @@
-La version la plus avancée est Raphael.py avec le module implémenté par Mattis
 Participants : Mattis BORDERIES Amine AMZAI, Maxime DE BUSSAC, Raphael POUX
 
 pour lancer le projet : lancer le main 
@@ -32,6 +31,10 @@ carte_2.txt, carte_3.txt,carte_4.txt : Des cartes plus fournies
 
 credits.py : L'écran de crédits
 
+On a également codé une deuxième version du jeu avec un affichage et un fonctionnement différent.
+
+
+
 README.md : ( Ce que vous êtes en train de lire en ce moment même ^^)
 
 
@@ -45,6 +48,9 @@ Amine :
 -Gestion des portails: La gestion des nombreux cas particuliers qui rendent l'écriture fastidieuse, ce qui pousse alors à essayer d'optimiser le code pour le rendre 
 plus lisible. Dans des cas particuliers les téléportations peuvent être sources de bugs.
 -Git: Gérer les conflits, et adapter son code aux autres de manière générale. 
+Raphaël :
+L'envergure du projet a été un problème majeur car elle a ralenti considérablement les phases de test et l'ajustement des paramètres de jeu.
+De plus, la réunion des différentes parties du code a été la source de nombreux bugs.
 
 
 
@@ -52,3 +58,5 @@ Ce que j'ai appris :
 Mattis : mieux comprendre l'utilité des classes : une bien meilleur lisibilité du code 
 lecture d'evenement et les subtilité sur la gestion d'affichage : meilleur compréhension de la librairie pygame 
 Amine : Les classes sont un outil très pratique. Il est important d'essayer de bien réfléchir en amont à l'architecture du code pour qu'il soit à la fois le plus lisible et le plus compréhensible.  
+Raphaël : Les classes sont très pratiques pour créer des objets, les modifier et les faire interagir. Les bugs que l'on rencontre sont soit dus à la manière dont on veut que
+les interactions se fassent, soit à la manière qu'on a de coder ces interactions. Il est capital de comprendre la source du bug pour le résoudre. 
