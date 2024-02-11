@@ -16,12 +16,11 @@ button.py : Gestion des boutons utilisés dans le menu principal
 instructions.py ! Permet d'afficher les instructions
 game.py : Le jeu à proprement dit
 Map.py : Permet de passer d'une carte en fichier texte à une map affichée à l'écran 
-Perso.py : Gestion du personnage et de sa téléportation 
+Perso.py : Gestion du personnage et de sa téléportation, gere le personnage, ses déplacements et les forces qui s'appliquent sur lui (gravité, frottement), gere l'affichage du personnage
 portail.py : Gestion des portails
 carte.txt : Une carte
 carte_2.txt : Une seconde carte plus fournie 
 README.md : ( Ce que vous êtes en train de lire en ce moment même ^^)
-perso.py : gere le personnage, ses déplacements et les forces qui s'appliquent sur lui (gravité, frottement)
 
 
 
