@@ -38,7 +38,7 @@ while running:
             if start_button.is_clicked(x, y):
                 is_display_instructions = False
                 game = Game()
-                game.run("carte_2.txt")
+                game.run(['carte_2.txt', 'carte_3.txt','carte_4.txt'])
             elif instructions_button.is_clicked(x, y):
                 instructions = Instructions()
                 instructions.run()
@@ -46,7 +46,7 @@ while running:
                 sys.exit()
 
     # Draw the background
-    screen.blit(background, (-50, 0))
+    screen.blit(background, (70, 70))
 
     # Draw the title
     screen.blit(text, text_rect)
