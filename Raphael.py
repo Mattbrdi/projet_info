@@ -1,6 +1,6 @@
 import pygame
 import random as rd
-import Mattis as matt
+import Perso as matt
 
 
 pygame.init()
