@@ -4,6 +4,7 @@ Participants : Mattis BORDERIES Amine AMZAI, Maxime DE BUSSAC, Raphael POUX
 pour lancer le projet : lancer le main 
 
 Fonctionnalités : 
+
 Menu principal : permet de commencer la partie, lire les instructions, ou quitter le jeu. 
 Une carte où le joueur peut évoluer. 
 Les cartes sont des fichiers textes qui sont lues par le jeu, elles contiennent des zones accessibles, des obstacles, et le point d'apparition du joueur. 
@@ -12,14 +13,25 @@ Gestion des portails : Le joueur peut placer et déplacer des portails. Les port
 L'orientation d'un portail influe sur la gestion de la vitesse en sortie d'un portail. 
 
 main.py : Permet de lancer le programme, et de naviguer entre les différents modes (instructions, et game) 
-button.py : Gestion des boutons utilisés dans le menu principal 
+
+button.py : Gestion des boutons utilisés dans le menu principal
+
 instructions.py ! Permet d'afficher les instructions
+
 game.py : Le jeu à proprement dit
+
 Map.py : Permet de passer d'une carte en fichier texte à une map affichée à l'écran 
-Perso.py : Gestion du personnage et de sa téléportation, gere le personnage, ses déplacements et les forces qui s'appliquent sur lui (gravité, frottement), gere l'affichage du personnage
+
+Perso.py : Gestion du personnage et de sa téléportation, gere le personnage, ses déplacements et les forces qui s'appliquent sur lui (gravité, frottement), gère l'affichage du personnage
+
 portail.py : Gestion des portails
+
 carte.txt : Une carte
-carte_2.txt : Une seconde carte plus fournie 
+
+carte_2.txt, carte_3.txt,carte_4.txt : Des cartes plus fournies
+
+credits.py : L'écran de crédits
+
 README.md : ( Ce que vous êtes en train de lire en ce moment même ^^)
 
 
