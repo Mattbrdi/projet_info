@@ -1,6 +1,6 @@
 Participants : Mattis BORDERIES Amine AMZAI, Maxime DE BUSSAC, Raphael POUX
 
-pour lancer le projet : lancer le main 
+pour lancer le projet : lancer le main , autre version du jeu plus fluide mais dynamique pas convaincante sur raphael.py
 
 Fonctionnalités : 
 
