@@ -14,7 +14,6 @@ class objet:
         self.position = list(position) #liste(x,y)
         self.speed = [0,0] #liste (x,y)
         self.speed_max = list(speed_max) #liste(x,y)
-        print('perso existe')
         
             
     def acceleration(self, a):
@@ -53,7 +52,7 @@ class personnage(objet):
         for i, j in i_j   :
             points_losange.append((self.position[0] +i*self.taille_personnage, self.position[1]+ j*self.taille_personnage))
         pygame.draw.polygon(screen, couleur_perso, points_losange)
-        #pygame.draw.circle(screen, couleur_perso, self.position, self.taille_personnage)
+
     #adaptation du perso à la map
     def def_accessible_coordinates(self, carte):
         self.AccessibleCoordinates = []
@@ -114,21 +113,6 @@ class personnage(objet):
                 self.speed[1] -= self.speed[1]/self.norme_vitesse(self.speed)
                 
         self.position = self.next_position()
-
-        
-        
-        
-
-
-
-#pas compris à quoi ca sert
-    def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
-        if event.type == pygame.QUIT:
-            en_cours = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and (dc[0] or dc[1]) and matsurfaces[int(yc)][int(xc)]:
-            portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
-            portals = 1 - portals
-        return en_cours, portals, portal
     
     def teleportation(self, carte, portail_blue, portail_orange):
             if (self.position[0] - portail_blue.x)**2 + (self.position[1] - portail_blue.y)**2 <= (carte.carre - 24)**2 and (portail_blue.is_placed and portail_orange.is_placed):
