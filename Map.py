@@ -1,8 +1,6 @@
 import pygame
 import random as rd
  
-
-
 class Map:
     def __init__(self, filename, carre = 32):
         
@@ -32,4 +30,6 @@ class Map:
                 elif self.map_decouverte[i][j] == '+': #premier mur (differend des autres murs car pas colorié)
                     pygame.draw.rect(screen, (255,255,255), (j*self.carre, i*self.carre, self.carre, self.carre))
                 elif self.map_decouverte[i][j] == '-' or self.map_decouverte[i][j] == '|': #mur
-                    pygame.draw.rect(screen, (0, 0, 255), (j*self.carre, i*self.carre, self.carre, self.carre)) 
+                    pygame.draw.rect(screen, (0, 0, 255), (j*self.carre, i*self.carre, self.carre, self.carre))
+                elif self.map_decouverte[i][j] == 'P': #Fin du niveau
+                    pygame.draw.rect(screen, (0, 255, 0), (j*self.carre, i*self.carre, self.carre, self.carre))

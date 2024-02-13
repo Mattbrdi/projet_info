@@ -173,6 +173,9 @@ class Portail:
         touches (dict) : les touches du clavier appuyées
         """
         if self.is_selected:
+            if touches[pygame.K_z] or touches[pygame.K_s] or touches[pygame.K_q] or touches[pygame.K_d]:
+                x, y = self.get_draw_position(touches, position)
+                pygame.draw.line(screen, self.drawing_color, (position[0], position[1]), (x, y))
             if touches[pygame.K_SPACE]:
                 self.x, self.y = self.get_draw_position(touches, position)
                 self.facing = self.get_portal_facing(get_tile_normal(self.map, self.x, self.y))
@@ -192,6 +195,5 @@ class Portail:
         """
         rect_ovale = pygame.Rect(self.x + pos[self.facing][0], self.y + pos[self.facing][1], pos[self.facing][2], pos[self.facing][3])
         pygame.draw.ellipse(screen, self.drawing_color, rect_ovale)
-
     
         

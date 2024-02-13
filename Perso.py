@@ -14,7 +14,6 @@ class objet:
         self.position = list(position) #liste(x,y)
         self.speed = [0,0] #liste (x,y)
         self.speed_max = list(speed_max) #liste(x,y)
-        print('perso existe')
         
             
     def acceleration(self, a):
@@ -53,7 +52,7 @@ class personnage(objet):
         for i, j in i_j   :
             points_losange.append((self.position[0] +i*self.taille_personnage, self.position[1]+ j*self.taille_personnage))
         pygame.draw.polygon(screen, couleur_perso, points_losange)
-        #pygame.draw.circle(screen, couleur_perso, self.position, self.taille_personnage)
+
     #adaptation du perso à la map
     def def_accessible_coordinates(self, carte):
         self.AccessibleCoordinates = []
@@ -106,34 +105,28 @@ class personnage(objet):
     def next_position_considering_walls(self):
         while self.next_position() not in self.AccessibleCoordinates:
             if self.translated_pos([self.speed[0], 0]) not in self.AccessibleCoordinates:
+<<<<<<< HEAD
                 self.speed[0] -= self.speed[0]/abs(self.speed[0])*accel
             elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
                 self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
             else:  
                 self.speed[0] -= self.speed[0]/self.norme_vitesse(self.speed)*accel
                 self.speed[1] -= self.speed[1]/self.norme_vitesse(self.speed)*accel
+=======
+                self.speed[0] -= self.speed[0]/abs(self.speed[0])
+            elif self.translated_pos([0, self.speed[1]]) not in self.AccessibleCoordinates:
+                self.speed[1] -= self.speed[1]/abs(self.speed[1]) 
+            else:  
+                self.speed[0] -= self.speed[0]/self.norme_vitesse(self.speed)
+                self.speed[1] -= self.speed[1]/self.norme_vitesse(self.speed)
+>>>>>>> 059133801efe08f592f0d7699663fbf67c8b2a20
                 
         self.position = self.next_position()
-
-        
-        
-        
-
-
-
-#pas compris à quoi ca sert
-    def handle(self, event, en_cours, portal, portals, matsurfaces, xc, yc, dc):
-        if event.type == pygame.QUIT:
-            en_cours = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and (dc[0] or dc[1]) and matsurfaces[int(yc)][int(xc)]:
-            portal[portals] = ((xc, yc), matsurfaces[int(yc)][int(xc)])
-            portals = 1 - portals
-        return en_cours, portals, portal
     
     def teleportation(self, carte, portail_blue, portail_orange):
-            if (self.position[0] - portail_blue.x)**2 + (self.position[1] - portail_blue.y)**2 <= (carte.carre + 10)**2 and (portail_blue.is_placed and portail_orange.is_placed):
+            if (self.position[0] - portail_blue.x)**2 + (self.position[1] - portail_blue.y)**2 <= (carte.carre - 24)**2 and (portail_blue.is_placed and portail_orange.is_placed):
                 if portail_orange.facing == 'right':
-                    self.position = [portail_orange.x + 2*carte.carre, portail_orange.y]
+                    self.position = [portail_orange.x + 1*carte.carre, portail_orange.y]
                     if portail_blue.facing == 'left':
                         self.change_speed([-self.speed[0], -self.speed[1]]) 
                     if portail_blue.facing == 'up':
@@ -142,7 +135,7 @@ class personnage(objet):
                         self.change_speed([-self.speed[1], self.speed[0]]) 
 
                 elif portail_orange.facing == 'left':
-                    self.position = [portail_orange.x - 2*carte.carre, portail_orange.y]
+                    self.position = [portail_orange.x - 1*carte.carre, portail_orange.y]
                     if portail_blue.facing == 'right':
                         self.change_speed([-self.speed[0], -self.speed[1]]) 
                     if portail_blue.facing == 'up':
@@ -151,7 +144,7 @@ class personnage(objet):
                         self.change_speed([self.speed[1], -self.speed[0]]) 
 
                 elif portail_orange.facing == 'up':
-                    self.position = [portail_orange.x, portail_orange.y - 2*carte.carre]
+                    self.position = [portail_orange.x, portail_orange.y - 1*carte.carre]
                     if portail_blue.facing == 'right':
                         self.change_speed([-self.speed[1], self.speed[0]]) 
                     if portail_blue.facing == 'left':
@@ -160,7 +153,7 @@ class personnage(objet):
                         self.change_speed([-self.speed[0], -self.speed[1]]) 
 
                 elif portail_orange.facing == 'down':
-                    self.position = [portail_orange.x, portail_orange.y + 2*carte.carre]
+                    self.position = [portail_orange.x, portail_orange.y + 1*carte.carre]
                     if portail_blue.facing == 'right':
                         self.change_speed([self.speed[1], -self.speed[0]]) 
                     if portail_blue.facing == 'left':
@@ -171,7 +164,7 @@ class personnage(objet):
 
             elif (self.position[0] - portail_orange.x)**2 + (self.position[1] - portail_orange.y)**2 <= (carte.carre + 10)**2 and (portail_blue.is_placed and portail_orange.is_placed):
                 if portail_blue.facing == 'right':
-                    self.position = [portail_blue.x + 2*carte.carre, portail_blue.y]
+                    self.position = [portail_blue.x + 1*carte.carre, portail_blue.y]
                     if portail_orange.facing == 'left':
                         self.change_speed([-self.speed[0], -self.speed[1]]) 
                     if portail_orange.facing == 'up':
@@ -180,7 +173,7 @@ class personnage(objet):
                         self.change_speed([-self.speed[1], self.speed[0]]) 
 
                 elif portail_blue.facing == 'left':
-                    self.position = [portail_blue.x - 2*carte.carre, portail_blue.y]
+                    self.position = [portail_blue.x - 1*carte.carre, portail_blue.y]
                     if portail_orange.facing == 'right':
                         self.change_speed([-self.speed[0], -self.speed[1]]) 
                     if portail_orange.facing == 'up':
@@ -189,7 +182,7 @@ class personnage(objet):
                         self.change_speed([self.speed[1], -self.speed[0]]) 
                     
                 elif portail_blue.facing == 'up':
-                    self.position = [portail_blue.x, portail_blue.y - 2*carte.carre]
+                    self.position = [portail_blue.x, portail_blue.y - 1*carte.carre]
                     if portail_orange.facing == 'right':
                         self.change_speed([-self.speed[1], self.speed[0]]) 
                     if portail_orange.facing == 'left':
@@ -198,11 +191,29 @@ class personnage(objet):
                         self.change_speed([-self.speed[0], -self.speed[1]]) 
 
                 elif portail_blue.facing == 'down':
-                    self.position = [portail_blue.x, portail_blue.y + 2*carte.carre]
+                    self.position = [portail_blue.x, portail_blue.y + 1*carte.carre]
                     if portail_orange.facing == 'right':
                         self.change_speed([self.speed[1], -self.speed[0]]) 
                     if portail_orange.facing == 'left':
                         self.change_speed([-self.speed[1], self.speed[0]]) 
                     if portail_orange.facing == 'up':
                         self.change_speed([-self.speed[0], -self.speed[1]])
+<<<<<<< HEAD
     
+=======
+    
+    def end_coordonate(self, carte):
+        for i in range(len(carte.map)):
+            for j in range(len(carte.map[i])):
+                if carte.map[i][j] == 'P':
+                    return [j, i]
+    
+    def next_level(self, coord_fin, carte):
+        if (self.position[0]-coord_fin[0]*carte.carre)**2 + (self.position[1]-coord_fin[1]*carte.carre)**2 <= (carte.carre+10)**2:
+            return True
+        
+        
+    
+    
+    
+>>>>>>> 059133801efe08f592f0d7699663fbf67c8b2a20
