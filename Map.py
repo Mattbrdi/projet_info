@@ -1,8 +1,6 @@
 import pygame
 import random as rd
  
-
-
 class Map:
     def __init__(self, filename, carre = 32):
         
